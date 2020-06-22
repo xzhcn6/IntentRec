@@ -1,0 +1,147 @@
+
+{% extends "base.html" %}
+
+{% block title%}
+首页
+{% endblock %}
+
+{% block page_styles %}
+<style>
+#maincontent {
+	padding: 75px 25px;
+}
+
+</style>
+
+{% endblock %}
+
+{% block maincontent %}
+    <center>
+
+    <!-- Table -->
+    <div class="panel-heading"><h5>意图类型列表</h5></div>
+  <table class="table">
+      <tr>
+          <th>ID</th>
+          <th>意图类型</th>
+            <th>所属领域</th>
+            <th>示例</th>
+      </tr>
+       {% for type in type_list %}
+    <tr>
+        <td> {{ type.id }} </td>
+        <td> {{ type.name }} </td>
+         <td> {{ type.t_field.name }} </td>
+    <td> {{ type.example }} </td>
+    </tr>
+      {% endfor %}
+  </table>
+<h3>系统未能成功查询到您所输入句子的意图？</h3>
+    <span class="glyphicon glyphicon-hand-down"></span>
+    <span class="glyphicon glyphicon-hand-down"></span>
+        <span class="glyphicon glyphicon-hand-down"></span>
+    <span class="glyphicon glyphicon-hand-down"></span>
+        &nbsp&nbsp&nbsp&nbsp
+        <span class="glyphicon glyphicon-hand-down"></span>
+    <span class="glyphicon glyphicon-hand-down"></span>
+        <span class="glyphicon glyphicon-hand-down"></span>
+    <span class="glyphicon glyphicon-hand-down"></span>
+        <br>
+        是系统中已有类型的意图但是查询不到？<br>请在下面填写您想做的事情并选择其对应的意图：<br>
+    请输入意图类型的ID:
+    <input type="text" id="typeid" style="width: 50px;height:30px;" required>
+        <input type="text" class="form-control" size="50" placeholder="请输入您想做的事情" id="sentence" style="width: 310px;height:30px;" required><br>
+您的名字（可选）：<input type="text" id="authorname" style="width: 150px;height:30px;" required><br>
+        <img src="{% url 'getVerificationCode' %}" id="verifycodepic" alt="验证码"><a href="#" id="verifycode2">看不清，换一张</a><br>
+
+        <input type="text" id="verifycode" size="50" placeholder="请输入验证码"  style="width: 100px;height:30px;"required>
+    <button type="button" class="btn btn-danger" id="commit">提交数据</button>
+<br><br>   <span class="glyphicon glyphicon-hand-down"></span>
+<br>   <span class="glyphicon glyphicon-hand-down"></span><br>   <span class="glyphicon glyphicon-hand-down"></span>
+    <br>   <span class="glyphicon glyphicon-hand-down"></span>
+
+    <h3>没有您要查询的意图类别或类型？</h3>
+     </center>
+<!-- Container (Contact Section) -->
+<div id="contact" class="container-fluid bg-grey">
+  <h2 class="text-center">联系我们</h2>
+  <div class="row">
+    <div class="col-sm-5">
+      <p>联系方式</p>
+      <p><span class="glyphicon glyphicon-map-marker"></span> 北京市 海淀区 学院路37号</p>
+      <p><span class="glyphicon glyphicon-phone"></span> +86 17600853112</p>
+      <p><span class="glyphicon glyphicon-envelope"></span> xzhcn6@qq.com</p>
+    </div>
+    <div class="col-sm-7 slideanim">
+      <div class="row">
+        <div class="col-sm-6 form-group">
+          <input class="form-control" id="name" name="name" placeholder="Name" type="text" required>
+        </div>
+        <div class="col-sm-6 form-group">
+          <input class="form-control" id="email" name="email" placeholder="Email" type="email" required>
+        </div>
+      </div>
+      <textarea class="form-control" id="comments" name="comments" placeholder="Comment" rows="5"></textarea><br>
+      <div class="row">
+        <div class="col-sm-12 form-group">
+          <button class="btn btn-default pull-right" type="submit">Send</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<br><br><br>
+
+{% endblock %}
+
+{% block page_scripts %}
+<script type="text/javascript">
+$(function(){
+
+    $('#verifycodepic').click(function(){
+        changecode();
+    });
+    $('#verifycode2').click(function(){
+        changecode();
+    });
+});
+    function changecode(){
+
+        (document.getElementById("verifycodepic")).setAttribute("src","/getVerificationCode?"+Math.random());
+    }
+    $(function(){
+
+    $('#commit').click(function(){
+        $.ajaxSetup({
+            data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+        });
+        commit();
+    });
+});
+    function commit(){
+    var param = {};
+    param.sentence = $('#sentence').val();
+    param.typeid = $('#typeid').val();
+    param.verifycode = $('#verifycode').val();
+        param.authorname = $('#authorname').val();
+    $.ajax({
+       type:"POST",
+       data:param,
+       url:"{% url 'add-intent' %}",
+       success: function(data){
+          if (data.error_msg!= null){
+              $.smkAlert({
+                text: data.error_msg,
+                type: 'warning',
+                position:'bottom-right',
+                time: 3
+              });
+          } else {
+            window.alert(data.response);
+            (document.getElementById("verifycodepic")).setAttribute("src","/getVerificationCode?"+Math.random());
+          }
+       }
+    });
+}
+</script>
+{% endblock %}

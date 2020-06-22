@@ -1,0 +1,52 @@
+
+{% extends "base.html" %}
+
+{% block title%}
+首页
+{% endblock %}
+
+{% block page_styles %}
+<style>
+#maincontent {
+	padding: 75px 25px;
+}
+</style>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async
+          src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+  </script>
+{% endblock %}
+{% load static %}
+{% block maincontent %}
+<center>
+    <h1>本系统所用模型介绍</h1><br>
+    <h2>模型架构</h2>
+    模型的输入一句话语（utterance）：
+        $$X =(x_1,x_2,...x_n)$$
+ <br>
+    通过Albert模型输出X的embedding：
+    $$ e = ALBERT\_Encoder(X)$$
+ <br>
+    使用albert进行编码后的embedding作为双向GRU模型的输入：
+    $$e={e_1^{(i) }  ,...,e_m^{(i) }  } =BiGRU(E)$$
+    $$\overrightarrow{e_i}=GRU(v_l,\overrightarrow{e_{i-1}})$$
+    $$\overleftarrow{e_i}=GRU(v_l,\overleftarrow{e_{i-1}})$$
+    $$e={e_1^{(i)}  ,...,e_m^{(i) }  }={[\overrightarrow{e_l}  ; \overleftarrow{e_l} ],…}$$
+    <br>
+    第\(h_i\)层的信息为：
+    $$h_i  = \sigma(  W_t^{(i) }∙  e^{(i)}  +b_t^{(i) })$$
+ <br>
+    使用多头自注意力机制：
+    $$M= MH-ATT(w∙H^T)$$
+ <br>
+    最终使用Softmax进行分类：
+    $$\hat{y}=softmax(w^T∙M)$$
+    <br>
+    <h2>模型架构图</h2><br>
+    <img src={% static "images/1.png" %}  alt="本系统所用模型架构" />
+</center>
+{% endblock %}
+
+{% block page_scripts %}
+
+{% endblock %}

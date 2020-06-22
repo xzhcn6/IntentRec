@@ -1,0 +1,71 @@
+
+{% extends "base.html" %}
+
+{% block title%}
+首页
+{% endblock %}
+
+{% block page_styles %}
+<style>
+#maincontent {
+	padding: 75px 25px;
+}
+
+th {
+    text-align:center;
+
+}
+
+td {
+    text-align:center;
+    padding: 15px 15px;
+}
+
+</style>
+
+{% endblock %}
+
+{% block maincontent %}
+<center>
+<h2>北京航空航天大学</h2>
+    <h3>软件工程(AI)</h3>
+<br>
+    <table border="1" cellpadding="10" cellspacing="10">
+    <tr>
+        <th>姓名</th>
+        <th>学号</th>
+        <th >任务分工</th>
+    </tr>
+    <tr>
+        <td>张   旭</td>
+        <td>ZF1921222</td>
+        <td>组长，技术调研，算法优化</td>
+    </tr>
+   <tr>
+        <td>邓贺天</td>
+        <td>ZF1921121</td>
+        <td>需求分析及设计，前端编码</td>
+    </tr>
+        <tr>
+        <td>杜秋蓉</td>
+        <td>ZF1921103</td>
+        <td>算法研究，数据整理</td>
+    </tr>
+        <tr>
+        <td>何洪波</td>
+        <td>ZF1921531</td>
+        <td>后台架构设计及编码</td>
+    </tr>
+        <tr>
+        <td>刘金虎</td>
+        <td>ZF1921139</td>
+        <td>模型训练，系统测试，报告撰写</td>
+    </tr>
+    </table>
+
+</center>
+{% endblock %}
+
+{% block page_scripts %}
+
+{% endblock %}

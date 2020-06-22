@@ -1,0 +1,220 @@
+
+{% extends "base.html" %}
+
+{% block title%}
+首页
+{% endblock %}
+
+{% block page_styles %}
+<style>
+
+</style>
+
+{% endblock %}
+
+{% block maincontent %}
+
+<div class="jumbotron text-center">
+  <h1>万花筒查询</h1>
+  <p>智能匹配意图</p>
+  <div class="form-inline" action="" method="GET">
+    <input type="text" class="form-control" size="50" placeholder="请输入您想做的事情" id="sentence" required>
+    <button type="button" class="btn btn-danger" id="commit">Go</button>
+  </div>
+</div>
+
+<!-- Container (Show Model Section) -->
+<div id="about" class="container-fluid">
+  <div class="row">
+    <div class="col-sm-8">
+      <h2>关于意图识别</h2><br>
+      <h4>意图识别（Intention Recognition）是通过分类的办法将句子或者我们常说的Query分到相应的意图种类。本平台为个人关于对话意图识别软件的实现，不涉及任何商业利益，如有侵权，请告知。 </h4><br>
+        <br><a href='{% url 'showModel' %}'><button class="btn btn-default btn-lg" >了解更多</button></a>
+    </div>
+    <div class="col-sm-4">
+      <span class="glyphicon glyphicon-signal logo"></span>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="container-fluid bg-grey">
+  <div class="row">
+    <div class="col-sm-4">
+      <span class="glyphicon glyphicon-globe logo slideanim"></span>
+    </div>
+    <div class="col-sm-8">
+      <h2>一起打造万花筒</h2><br>
+      <h4><strong>目前情况:</strong><br>中文数据集只包含少数类别及类型的意图<br>需要您的加入来一起完善万花筒查询系统</h4>
+      <p><strong>遇到下列情况怎么办:</strong>
+        <br>是已有类型的意图但是查询不到？
+        <br>没有您要查询的意图类别或类型？</p>
+        <br><a href='{% url 'uploadData' %}'><button class="btn btn-default btn-lg" >点击解决</button></a>
+    </div>
+  </div>
+</div>
+
+<!-- Container (MORE Section) -->
+<div id="more" class="container-fluid text-center">
+  <h2>MORE</h2>
+  <h4>About Natural Language Processing</h4>
+  <br>
+  <div class="row slideanim">
+    <div class="col-sm-4">
+      <span class="glyphicon glyphicon-off logo-small"></span>
+      <h4>Machine translation</h4>
+      <p>Machine translation (MT) refers to fully automated software that can translate source content into target languages.</p>
+    </div>
+    <div class="col-sm-4">
+      <span class="glyphicon glyphicon-heart logo-small"></span>
+      <h4>Question answering</h4>
+      <p>An open domain question answering system aims at returning an answer in response to the user’s question. The returned answer is in the form of short texts rather than a list of relevant documents.</p>
+    </div>
+    <div class="col-sm-4">
+      <span class="glyphicon glyphicon-lock logo-small"></span>
+      <h4>Information retrieval</h4>
+      <p>Information retrieval definition is - the techniques of storing and recovering and often disseminating recorded data especially through the use of a computerized system.</p>
+    </div>
+  </div>
+  <br><br>
+  <div class="row slideanim">
+    <div class="col-sm-4">
+      <span class="glyphicon glyphicon-leaf logo-small"></span>
+      <h4>Text classification</h4>
+      <p>Text classification (a.k.a. text categorization or text tagging) is the task of assigning a set of predefined categories to free-text.</p>
+    </div>
+    <div class="col-sm-4">
+      <span class="glyphicon glyphicon-certificate logo-small"></span>
+      <h4>Automatic summarization</h4>
+      <p>Automatic summarization is the process of shortening a set of data computationally, to create a subset (a summary) that represents the most important or relevant information within the original content.</p>
+    </div>
+    <div class="col-sm-4">
+      <span class="glyphicon glyphicon-wrench logo-small"></span>
+      <h4 style="color:#303030;">Textual entailment</h4>
+      <p>Textual Entailment (TE) models take a pair of sentences and predict whether the facts in the first necessarily imply the facts in the second one.</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- Container (Contact Section) -->
+<div id="contact" class="container-fluid bg-grey">
+  <h2 class="text-center">联系我们</h2>
+  <div class="row">
+    <div class="col-sm-5">
+      <p>联系方式</p>
+      <p><span class="glyphicon glyphicon-map-marker"></span> 北京市 海淀区 学院路37号</p>
+      <p><span class="glyphicon glyphicon-phone"></span> +86 17600853112</p>
+      <p><span class="glyphicon glyphicon-envelope"></span> xzhcn6@qq.com</p>
+    </div>
+    <div class="col-sm-7 slideanim">
+      <div class="row">
+        <div class="col-sm-6 form-group">
+          <input class="form-control" id="name" name="name" placeholder="Name" type="text" required>
+        </div>
+        <div class="col-sm-6 form-group">
+          <input class="form-control" id="email" name="email" placeholder="Email" type="email" required>
+        </div>
+      </div>
+      <textarea class="form-control" id="comments" name="comments" placeholder="Comment" rows="5"></textarea><br>
+      <div class="row">
+        <div class="col-sm-12 form-group">
+          <button class="btn btn-default pull-right" type="submit">Send</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="model fade" id="modal" tabindex="-1" role="dialog" aria_labelledby="myModelLabel" aria-hidden="true">
+
+  <div class="modal-dialog">
+
+    <div class="modal-content"></div>
+
+      <button class="btn btn-primary btn-lg" onclick="btnSaveClick()" data-dismess="modal">确定</button>
+
+    <button class="btn btn-primary btn-lg" data-dismess="modal">取消</button>
+
+ </div>
+
+</div>
+<div class="modal fade" id="waiting" tabindex="-1" role="dialog" aria-labelledby="information">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="wait_title">等待中...</h4>
+      </div>
+        <div class="modal-body"><center><h4 class="modal-title" id="wait_body"></h4><input type="submit" id="b1" value="新的意图" onclick="location.href={% url 'uploadData' %}" /></center></div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}
+
+{% block footer %}
+<footer class="container-fluid text-center">
+  <a href="#myPage" title="To Top">
+    <span class="glyphicon glyphicon-chevron-up"></span>
+  </a>
+  <p><a href="http://beian.miit.gov.cn" title="Visit delta">京ICP备19040194号</a></p>
+</footer>
+{% endblock %}
+
+{% block page_scripts %}
+<!-- Smoke -->
+<link href="{{STATIC_URL}}static/smoke-v3/css/smoke.min.css" rel="stylesheet">
+<!-- Smoke -->
+<script src="{{STATIC_URL}}static/smoke-v3/js/smoke.min.js"></script>
+<script type="text/javascript">
+$(function(){
+
+    $('#commit').click(function(){
+        $.ajaxSetup({
+            data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+        });
+        commit();
+        $('#waiting').modal('show');
+        $('#b1').hide();
+        $('#waiting').modal().css({
+         'margin-top': function () {
+             return ($(this).height() * 0.5);
+         }
+     });
+    });
+});
+
+
+function commit(){
+    var param = {};
+    param.sentence = $('#sentence').val();
+    $.ajax({
+       type:"POST",
+       data:param,
+       url:"{% url 'search-post' %}",
+       success: function(data){
+          if (data.error_msg!= null){
+              $.smkAlert({
+                text: data.error_msg,
+                type: 'warning',
+                position:'bottom-right',
+                time: 3
+              });
+          } else {
+              $('#waiting').modal('show');
+              $('#b1').hide();
+              if (data.flag ==1){
+                //window.alert("您所查询的意图为:"+data.sentence);
+                  $('#wait_title').text("您所查询的意图为:");
+                  $('#wait_body').text(data.sentence);
+              }else{
+                  $('#wait_title').text("查询失败！请重试！或者您可以点击添加");
+                   $('#b1').show();
+              }
+          }
+       }
+    });
+}
+</script>
+{% endblock %}
