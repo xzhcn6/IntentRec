@@ -2,5 +2,5 @@
 
 *.pyc
 utils/.idea/*
-
+.idea
 

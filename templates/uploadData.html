@@ -16,7 +16,6 @@
 {% endblock %}
 
 {% block maincontent %}
-    <center>
 
     <!-- Table -->
     <div class="panel-heading"><h5>意图类型列表</h5></div>
@@ -36,32 +35,60 @@
     </tr>
       {% endfor %}
   </table>
-<h3>系统未能成功查询到您所输入句子的意图？</h3>
-    <span class="glyphicon glyphicon-hand-down"></span>
-    <span class="glyphicon glyphicon-hand-down"></span>
+    <div style="margin-left:30%">
+        <h3>系统未能成功查询到您所输入句子的意图？</h3>
         <span class="glyphicon glyphicon-hand-down"></span>
-    <span class="glyphicon glyphicon-hand-down"></span>
+        <span class="glyphicon glyphicon-hand-down"></span>
+        <span class="glyphicon glyphicon-hand-down"></span>
+        <span class="glyphicon glyphicon-hand-down"></span>
         &nbsp&nbsp&nbsp&nbsp
         <span class="glyphicon glyphicon-hand-down"></span>
-    <span class="glyphicon glyphicon-hand-down"></span>
         <span class="glyphicon glyphicon-hand-down"></span>
-    <span class="glyphicon glyphicon-hand-down"></span>
+        <span class="glyphicon glyphicon-hand-down"></span>
+        <span class="glyphicon glyphicon-hand-down"></span>
         <br>
         是系统中已有类型的意图但是查询不到？<br>请在下面填写您想做的事情并选择其对应的意图：<br>
-    请输入意图类型的ID:
-    <input type="text" id="typeid" style="width: 50px;height:30px;" required>
-        <input type="text" class="form-control" size="50" placeholder="请输入您想做的事情" id="sentence" style="width: 310px;height:30px;" required><br>
-您的名字（可选）：<input type="text" id="authorname" style="width: 150px;height:30px;" required><br>
-        <img src="{% url 'getVerificationCode' %}" id="verifycodepic" alt="验证码"><a href="#" id="verifycode2">看不清，换一张</a><br>
+        <form class="pure-form pure-form-aligned">
 
-        <input type="text" id="verifycode" size="50" placeholder="请输入验证码"  style="width: 100px;height:30px;"required>
-    <button type="button" class="btn btn-danger" id="commit">提交数据</button>
-<br><br>   <span class="glyphicon glyphicon-hand-down"></span>
-<br>   <span class="glyphicon glyphicon-hand-down"></span><br>   <span class="glyphicon glyphicon-hand-down"></span>
-    <br>   <span class="glyphicon glyphicon-hand-down"></span>
+            <fieldset>
+                <div class="pure-control-group">
+                    <label for="typeid">意图类型ID</label>
+                    <input type="text" id="typeid" required>
+                </div>
 
-    <h3>没有您要查询的意图类别或类型？</h3>
-     </center>
+                <div class="pure-control-group">
+                    <label for="sentence">意图事项</label>
+                    <input type="text" placeholder="请输入您想做的事情" id="sentence" required>
+                </div>
+
+                <div class="pure-control-group">
+                    <label for="authorname">您的名字(可选)</label>
+                    <input type="text" id="authorname">
+                </div>
+
+                <div class="pure-control-group">
+                    <label for="verifycode">验证码</label>
+                    <input type="text" id="verifycode" placeholder="" required>
+                    <img src="{% url 'getVerificationCode' %}" id="verifycodepic"
+                         style="width:100px;height:35px"
+                         alt="验证码"/>
+                    <a href="#" id="verifycode2">看不清，换一张</a>
+                </div>
+
+                <div class="pure-controls">
+                    <button type="button" class="btn btn-danger" id="commit">提交数据</button>
+                </div>
+            </fieldset>
+        </form>
+        <div style="margin-left: 20%">
+            <br><br> <span class="glyphicon glyphicon-hand-down"></span>
+            <br> <span class="glyphicon glyphicon-hand-down"></span><br> <span
+                class="glyphicon glyphicon-hand-down"></span>
+            <br> <span class="glyphicon glyphicon-hand-down"></span>
+            <h3>没有您要查询的意图类别或类型？</h3>
+        </div>
+    </div>
+
 <!-- Container (Contact Section) -->
 <div id="contact" class="container-fluid bg-grey">
   <h2 class="text-center">联系我们</h2>
